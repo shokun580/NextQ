@@ -115,7 +115,7 @@ export default function landingpage() {
       {/* ปุ่ม */}
       <div className="mt-10 flex items-center justify-center gap-x-6">
         <a
-          href="#"
+          href="/login"
           className="inline-flex items-center rounded-md bg-black px-5 py-3 
                      text-sm sm:text-base font-semibold text-white shadow 
                      hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black/30"
