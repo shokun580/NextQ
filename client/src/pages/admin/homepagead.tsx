@@ -1,7 +1,20 @@
 // src/pages/AdminDashboard.tsx
-import { ChartBarIcon, ClockIcon, UsersIcon, RectangleGroupIcon, ForwardIcon, CheckIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import {
+    ChartBarIcon,
+    ClockIcon,
+    UsersIcon,
+    RectangleGroupIcon,
+    ForwardIcon,
+    ArrowPathIcon,
+} from "@heroicons/react/24/outline";
 
-type Ticket = { id: string; number: string; status: "serving" | "waiting"; wait: string; joined: string; };
+type Ticket = {
+    id: string;
+    number: string;
+    status: "serving" | "waiting";
+    wait: string;
+    joined: string;
+};
 
 export default function AdminDashboard() {
     // ----- MOCK DATA -----
@@ -28,42 +41,60 @@ export default function AdminDashboard() {
             {/* Title */}
             <div>
                 <h1 className="text-xl font-semibold text-gray-900">Queue Dashboard</h1>
-                <p className="text-sm text-gray-500">Real-time overview of your queue management system</p>
+                <p className="text-sm text-gray-500">
+                    Real-time overview of your queue management system
+                </p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                <StatCard icon={<UsersIcon className="size-5" />} label="Current Queue" value={String(stats.waitingCount)} />
-                <StatCard icon={<RectangleGroupIcon className="size-5" />} label="Now Serving" value={stats.nowServing} />
-                <StatCard icon={<ClockIcon className="size-5" />} label="Avg Wait Time" value={stats.avgWait} />
-                <StatCard icon={<ChartBarIcon className="size-5" />} label="Today's Total" value={String(stats.todayTotal)} />
+                <StatCard
+                    icon={<UsersIcon className="size-5" />}
+                    label="Current Queue"
+                    value={String(stats.waitingCount)}
+                />
+                <StatCard
+                    icon={<RectangleGroupIcon className="size-5" />}
+                    label="Now Serving"
+                    value={stats.nowServing}
+                />
+                <StatCard
+                    icon={<ClockIcon className="size-5" />}
+                    label="Avg Wait Time"
+                    value={stats.avgWait}
+                />
+                <StatCard
+                    icon={<ChartBarIcon className="size-5" />}
+                    label="Today's Total"
+                    value={String(stats.todayTotal)}
+                />
             </div>
 
-            {/* Main grid: left content + right sidebar */}
+            {/* Main grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* LEFT */}
                 <div className="lg:col-span-2 space-y-6">
-                    {/* Activity (chart placeholder) */}
-                    <section className="rounded-xl border bg-white">
-                        <header className="px-4 py-3 border-b">
+                    {/* Activity */}
+                    <section className="rounded-xl bg-white/70 backdrop-blur-md shadow-lg">
+                        <header className="px-4 py-3 border-b border-white/30">
                             <h2 className="text-sm font-semibold text-gray-900">Queue Activity</h2>
                         </header>
                         <div className="p-4">
-                            <div className="h-44 rounded-lg border border-dashed grid place-items-center text-sm text-gray-500">
+                            <div className="h-44 rounded-lg border border-dashed border-gray-300 grid place-items-center text-sm text-gray-500">
                                 Queue activity chart visualization
                             </div>
                         </div>
                     </section>
 
                     {/* Current Queue table */}
-                    <section className="rounded-xl border bg-white overflow-hidden">
-                        <header className="px-4 py-3 border-b">
+                    <section className="rounded-xl bg-white/70 backdrop-blur-md shadow-lg overflow-hidden">
+                        <header className="px-4 py-3 border-b border-white/30">
                             <h2 className="text-sm font-semibold text-gray-900">Current Queue</h2>
                         </header>
 
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm">
-                                <thead className="bg-gray-50 text-gray-600">
+                                <thead className="bg-gray-50/60 text-gray-600">
                                     <tr>
                                         <Th>Ticket</Th>
                                         <Th>Status</Th>
@@ -72,9 +103,9 @@ export default function AdminDashboard() {
                                         <Th>Actions</Th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y">
+                                <tbody className="divide-y divide-gray-200/40">
                                     {rows.map((r) => (
-                                        <tr key={r.id} className="bg-white">
+                                        <tr key={r.id} className="bg-white/60">
                                             <Td>{r.number}</Td>
                                             <Td>
                                                 {r.status === "serving" ? (
@@ -101,7 +132,7 @@ export default function AdminDashboard() {
                 {/* RIGHT */}
                 <div className="space-y-6">
                     {/* Quick Actions */}
-                    <section className="rounded-xl border bg-white p-4">
+                    <section className="rounded-xl bg-white/70 backdrop-blur-md shadow-lg p-4">
                         <h3 className="mb-3 text-sm font-semibold text-gray-900">Quick Actions</h3>
                         <div className="space-y-3">
                             <BtnPrimary icon={<ForwardIcon className="size-4" />}>Call Next</BtnPrimary>
@@ -110,7 +141,7 @@ export default function AdminDashboard() {
                     </section>
 
                     {/* Recent Activity */}
-                    <section className="rounded-xl border bg-white p-4">
+                    <section className="rounded-xl bg-white/70 backdrop-blur-md shadow-lg p-4">
                         <h3 className="mb-3 text-sm font-semibold text-gray-900">Recent Activity</h3>
                         <ul className="space-y-3 text-sm">
                             {activities.map((a) => (
@@ -132,12 +163,22 @@ export default function AdminDashboard() {
 
 /* ---------- UI bits ---------- */
 
-function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+function StatCard({
+    icon,
+    label,
+    value,
+}: {
+    icon: React.ReactNode;
+    label: string;
+    value: string;
+}) {
     return (
-        <div className="rounded-xl border bg-white p-4">
+        <div className="rounded-xl bg-white/70 backdrop-blur-md shadow-lg p-4">
             <div className="flex items-center justify-between">
                 <div className="text-sm font-medium text-gray-600">{label}</div>
-                <div className="grid size-8 place-items-center rounded-lg border text-gray-600">{icon}</div>
+                <div className="grid size-8 place-items-center rounded-lg bg-white/50 text-gray-600 shadow-inner">
+                    {icon}
+                </div>
             </div>
             <div className="mt-2 text-2xl font-semibold text-gray-900">{value}</div>
         </div>
@@ -151,22 +192,34 @@ function Td({ children }: { children: React.ReactNode }) {
     return <td className="px-3 py-2 text-gray-900">{children}</td>;
 }
 
-function BtnPrimary({ icon, children }: { icon?: React.ReactNode; children: React.ReactNode }) {
+function BtnPrimary({
+    icon,
+    children,
+}: {
+    icon?: React.ReactNode;
+    children: React.ReactNode;
+}) {
     return (
         <button
             type="button"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-black"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white shadow hover:bg-black"
         >
             {icon}
             <span>{children}</span>
         </button>
     );
 }
-function BtnGhost({ icon, children }: { icon?: React.ReactNode; children: React.ReactNode }) {
+function BtnGhost({
+    icon,
+    children,
+}: {
+    icon?: React.ReactNode;
+    children: React.ReactNode;
+}) {
     return (
         <button
             type="button"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-white ring-1 ring-gray-200 px-4 py-2.5 text-sm font-semibold hover:bg-gray-50"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-white/60 backdrop-blur-sm ring-1 ring-gray-200 px-4 py-2.5 text-sm font-semibold hover:bg-white/80"
         >
             {icon}
             <span>{children}</span>

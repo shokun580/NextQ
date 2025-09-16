@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
-import { ArrowPathIcon, CheckIcon, ForwardIcon } from "@heroicons/react/24/solid";
+import { ArrowPathIcon, ForwardIcon } from "@heroicons/react/24/solid";
 
 type Props = {
-    servingNo?: string;     // เลขที่กำลังให้บริการ เช่น "A007"
-    waitingCount?: number;  // จำนวนที่กำลังรอ เช่น 24
-    avgWaitMin?: number;    // เวลารอเฉลี่ย (นาที) เช่น 12
+    servingNo?: string;
+    waitingCount?: number;
+    avgWaitMin?: number;
     className?: string;
 };
 
@@ -15,17 +15,17 @@ export default function QueueControlCard({
     className = "",
 }: Props) {
     return (
-        <section className={`rounded-xl border border-gray-200 bg-white p-4 shadow-sm ${className}`}>
+        <section className={`rounded-2xl bg-white p-4 shadow-md ring-1 ring-black/5 ${className}`}>
             <h3 className="mb-3 text-base font-semibold text-gray-900">Queue Control</h3>
 
-            {/* สถานะคิว (ตกแต่งอย่างเดียว) */}
+            {/* สถานะคิว — ล็อกความสูง tile ให้เท่ากัน */}
             <div className="mb-4 grid grid-cols-3 gap-3">
                 <Stat title="Waiting" value={String(waitingCount)} />
-                <Stat title="Now Serving" value={servingNo} emphasis />
+                <Stat title="Queue" value={servingNo} emphasis />
                 <Stat title="Avg Wait" value={`${avgWaitMin}m`} />
             </div>
 
-            {/* ปุ่มควบคุม (UI เท่านั้น) */}
+            {/* ปุ่ม — ล็อกความสูง และจัดไอคอนให้อยู่กึ่งกลางบรรทัด */}
             <div className="space-y-3">
                 <Button variant="primary" icon={<ForwardIcon className="size-4" />}>
                     Call Next Ticket
@@ -39,11 +39,20 @@ export default function QueueControlCard({
 }
 
 /* ====== Sub components ====== */
-function Stat({ title, value, emphasis = false }: { title: string; value: string; emphasis?: boolean }) {
+
+function Stat({
+    title,
+    value,
+    emphasis = false,
+}: {
+    title: string;
+    value: string;
+    emphasis?: boolean;
+}) {
     return (
-        <div className="rounded-lg border border-gray-200 p-3">
+        <div className="rounded-lg ring-1 ring-gray-200 p-3 h-20 flex flex-col justify-center">
             <div className="text-xs font-medium text-gray-500">{title}</div>
-            <div className={["mt-1 font-semibold", emphasis ? "text-2xl text-gray-900" : "text-xl text-gray-800"].join(" ")}>
+            <div className={emphasis ? "mt-1 text-2xl font-semibold text-gray-900" : "mt-1 text-xl font-semibold text-gray-800"}>
                 {value}
             </div>
         </div>
@@ -60,15 +69,16 @@ function Button({
     variant?: "primary" | "ghost";
 }) {
     const base =
-        "w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition";
+        "w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 h-11 text-sm font-semibold transition select-none";
     const stylePrimary =
         "bg-gray-900 text-white hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900";
-    const styleGhost = "bg-white text-gray-900 ring-1 ring-gray-200 hover:bg-gray-50";
+    const styleGhost =
+        "bg-white text-gray-900 ring-1 ring-gray-200 hover:bg-gray-50";
 
     return (
-        <button type="button" className={[base, variant === "primary" ? stylePrimary : styleGhost].join(" ")}>
-            {icon && <span className="shrink-0">{icon}</span>}
-            <span>{children}</span>
+        <button type="button" className={`${base} ${variant === "primary" ? stylePrimary : styleGhost}`}>
+            {icon && <span className="shrink-0 leading-none align-middle -mt-px">{icon}</span>}
+            <span className="leading-none align-middle">{children}</span>
         </button>
     );
 }
