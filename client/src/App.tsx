@@ -6,22 +6,19 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 // import { Link } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'About', href: '/About' },
-  { name: 'contact', href: '/contact' },
-  { name: 'Company', href: '#' },
+  { name: 'Admin', href: '/admin' },
 ]
 
-export default function Example() {
+export default function landingpage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="bg-gray-900 h-screen">
+    <div className="bg-gray-700 h-screen">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">NextQ</span>
               <img
                 alt=""
                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
@@ -39,16 +36,9 @@ export default function Example() {
               <Bars3Icon aria-hidden="true" className="size-6" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-white">
-                {item.name}
-              </a>
-            ))}
-          </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm/6 font-semibold text-white">
-              Log in <span aria-hidden="true">&rarr;</span>
+            <a href="/admin" className="text-sm/6 font-semibold text-white">
+              Admin <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>
@@ -87,11 +77,10 @@ export default function Example() {
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
+                  <a href='/admin'
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                   >
-                    Log in
+                    Admin
                   </a>
                 </div>
               </div>
